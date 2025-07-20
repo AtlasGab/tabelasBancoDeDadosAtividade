@@ -1,9 +1,9 @@
 CREATE DATABASE if not exists exEscola;
-use exEscola;
+USE exEscola;
 
 -- Tabelas e atributos --
 create table if not exists Campus (
-	codigo int primary key,
+    codigo int primary key,
     
     endereço varchar(100),
     cidade varchar(100)
@@ -11,7 +11,7 @@ create table if not exists Campus (
 
 
 create table if not exists Professor (
-	matricula int primary key,
+    matricula int primary key,
     
     nome varchar(80),
     titulacao varchar(50),
@@ -22,7 +22,7 @@ create table if not exists Professor (
 
 
 create table if not exists Notebook (
-	codigo int primary key,
+    codigo int primary key,
     
     data_compra date,
     
@@ -32,7 +32,7 @@ create table if not exists Notebook (
 
 
 create table if not exists Turma (
-	codigo int primary key,
+    codigo int primary key,
     
     semestre int,
     
@@ -42,7 +42,7 @@ create table if not exists Turma (
 
 
 create table if not exists Aluno (
-	matricula int primary key,
+    matricula int primary key,
     
     nome varchar(80),
     rendimento decimal(2, 1)
@@ -61,7 +61,7 @@ create table Professor_Leciona_Turma (
 
 
 create table Professor_Adquire_Notebook (
-	codigo_notebook int primary key,
+    codigo_notebook int primary key,
     
     matricula_professor int unique,
     data_aquisicao date,
