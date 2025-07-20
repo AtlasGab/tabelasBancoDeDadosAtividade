@@ -45,7 +45,7 @@ create table if not exists Aluno (
     matricula int primary key,
     
     nome varchar(80),
-    rendimento decimal(2, 1)
+    rendimento decimal(3, 1)
 );
 
 
