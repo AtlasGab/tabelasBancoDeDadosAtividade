@@ -45,7 +45,10 @@ create table if not exists Aluno (
     matricula int primary key,
     
     nome varchar(80) not null,
-    rendimento decimal(3, 1) 
+    rendimento decimal(3, 1),
+    
+    codigo_turma int not null,
+    foreign key(codigo_turma) references Turma(codigo)
 );
 
 
@@ -72,14 +75,6 @@ create table Professor_Adquire_Notebook (
 );
 
 
-create table Aluno_Turmas (
-    matricula_aluno int,
-    codigo_turma int,
-    primary key(matricula_aluno, codigo_turma),
-    
-    foreign key (matricula_aluno) references Aluno(matricula),
-    foreign key (codigo_turma) references Turma(codigo)
-);
 
 describe Campus;
 describe Professor;
@@ -88,5 +83,3 @@ describe Professor_Leciona_Turma;
 describe Aluno;
 describe Notebook;
 describe Professor_Adquire_Notebook;
-describe Aluno_Turmas;
-
