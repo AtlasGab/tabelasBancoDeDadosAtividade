@@ -53,7 +53,7 @@ create table Usuario_Possui_Tag (
     id_tag int,
     id_usuario int,
     horario datetime not null,
-    primary key(id_tag, id_usuario, horario),
+    primary key(id_tag),
     
     foreign key(id_tag) references Tag(id),
     foreign key(id_usuario) references Usuario(id)
