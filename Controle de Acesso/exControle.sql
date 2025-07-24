@@ -1,10 +1,10 @@
 create database Controle_de_Acesso;
 use Controle_de_Acesso;
 
-  -- Tabelas e Atributos --
+-- Tabelas e Atributos --
 create table Tag (
     id int primary key auto_increment,
-    código int unique not null,
+    codigo int unique not null,
     tipo varchar(50)
 );
 
@@ -22,20 +22,25 @@ create table Usuario (
 
 create table Servidor (
     id_usuario int primary key,
-    
     matricula varchar(50) unique not null,
     
     foreign key(id_usuario) references Usuario(id)
+        on delete restrict
+        on update cascade
 );
 
 create table Externo (
     id_usuario int primary key,
-    matricula_supervisor varchar(50) not null, -- Relação de supervisão
-    
+    matricula_supervisor varchar(50) not null,
     cpf varchar(11) unique not null,
     
-    foreign key(id_usuario) references Usuario(id),
+    foreign key(id_usuario) references Usuario(id)
+        on delete restrict
+        on update cascade,
+        
     foreign key(matricula_supervisor) references Servidor(matricula)
+        on delete restrict
+        on update cascade
 );
 
 -- Relacionamentos --
@@ -45,8 +50,13 @@ create table Permissao_Sala (
     horario datetime not null,
     primary key(id_sala, id_usuario, horario),
     
-    foreign key(id_sala) references Sala(id),
+    foreign key(id_sala) references Sala(id)
+        on delete restrict
+        on update cascade,
+        
     foreign key(id_usuario) references Usuario(id)
+        on delete restrict
+        on update cascade
 );
 
 create table Usuario_Possui_Tag (
@@ -55,8 +65,13 @@ create table Usuario_Possui_Tag (
     horario datetime not null,
     primary key(id_tag),
     
-    foreign key(id_tag) references Tag(id),
+    foreign key(id_tag) references Tag(id)
+        on delete restrict
+        on update cascade,
+        
     foreign key(id_usuario) references Usuario(id)
+        on delete restrict
+        on update cascade
 );
 
 create table Usuario_Tenta_Acessar (
@@ -67,18 +82,16 @@ create table Usuario_Tenta_Acessar (
     permitido boolean,
     primary key(id_usuario, id_tag, id_sala, horario),
     
-    foreign key(id_tag) references Tag(id),
-    foreign key(id_sala) references Sala(id),
+    foreign key(id_tag) references Tag(id)
+        on delete restrict
+        on update cascade,
+        
+    foreign key(id_sala) references Sala(id)
+        on delete restrict
+        on update cascade,
+        
     foreign key(id_usuario) references Usuario(id)
+        on delete restrict
+        on update cascade
 );
 
-
-DESCRIBE Tag;
-DESCRIBE Sala;
-DESCRIBE Usuario;
-DESCRIBE Servidor;
-DESCRIBE Externo;
-
-DESCRIBE Permissao_Sala;
-DESCRIBE Usuario_Possui_Tag;
-DESCRIBE Usuario_Tenta_Acessar;
