@@ -1,6 +1,6 @@
-create database Setores;
+create database Empresa_de_Desenvolvimento;
 
-use Setores;
+use Empresa_de_Desenvolvimento;
 
 create table Setor (
     codigo int primary key,
@@ -13,6 +13,8 @@ create table Empregado (
     
     codigo_setor int not null, -- Relação lotado
     foreign key(codigo_setor) references Setor(codigo)
+        on delete restrict
+        on update cascade
 );
 
 create table Engenheiro (
@@ -20,6 +22,9 @@ create table Engenheiro (
     numero_de_registro int unique not null,
     
     foreign key(cpf) references Empregado(cpf)
+        on delete restrict
+        on update cascade
+
 );
 
 create table Programador (
@@ -27,21 +32,23 @@ create table Programador (
     especialidade varchar(70) not null,
     
     foreign key(cpf) references Empregado(cpf)
+        on delete restrict
+        on update cascade
 );
 
 create table Projeto (
     codigo int primary key,
-    nome varchar(100) not null
+    nome varchar(100) not null,
+
+    coordenador_engenheiro int unique not null, --relação de coordenador
+    data_coordenacao date,
+
+    foreign key(coordenador_engenheiro) references Engenheiro(numero_de_registro) 
+        on delete restrict
+        on update cascade
 );
 
-create table Engenheiro_Coordena_Projeto (
-    codigo_projeto int primary key,
-    registro_engenheiro int unique,
-    data_coordenacao date,
-    
-    foreign key(codigo_projeto) references Projeto(codigo),
-    foreign key(registro_engenheiro) references Engenheiro(numero_de_registro)
-);
+
 
 create table Programador_Participa_Projeto (
     cpf_programador varchar(11),
@@ -50,8 +57,13 @@ create table Programador_Participa_Projeto (
     
     data_participacao date,
     
-    foreign key(codigo_projeto) references Projeto(codigo),
+    foreign key(codigo_projeto) references Projeto(codigo)
+        on delete restrict
+        on update cascade,
+    
     foreign key(cpf_programador) references Programador(cpf)
+        on delete restrict
+        on update cascade
 );
 
 create table Linguagem_de_Programacao (
@@ -66,6 +78,11 @@ create table Programador_Domina_Linguagem (
     linguagem varchar(20),
     primary key(cpf_programador, linguagem),
     
-    foreign key(cpf_programador) references Programador(cpf),
+    foreign key(cpf_programador) references Programador(cpf)
+        on delete restrict
+        on update cascade,
+    
     foreign key(linguagem) references Linguagem_de_Programacao(nome)
+        on delete restrict
+        on update cascade
 ); -- não tem como colocar que o programador saiba no mínimo uma linguagem com o conhecimento atual da disciplina, pesquisar futuramente.
