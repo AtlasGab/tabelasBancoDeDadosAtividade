@@ -64,9 +64,8 @@ create table Professor_Leciona_Turma (
 
 
 create table Professor_Adquire_Notebook (
-    codigo_notebook int,
+    codigo_notebook int primary key,
     matricula_professor int unique,
-    primary key(codigo_notebook),
     
     data_aquisicao date,
     
