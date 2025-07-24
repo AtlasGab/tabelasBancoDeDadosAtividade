@@ -3,13 +3,13 @@ use Controle_de_Acesso;
 
   -- Tabelas e Atributos --
 create table Tag (
-    id int primary key,
+    id int primary key auto_increment,
     código int unique not null,
     tipo varchar(50)
 );
 
 create table Sala (
-    id int primary key,
+    id int primary key auto_increment,
     numero int unique not null,
     nome varchar(50)
 );
